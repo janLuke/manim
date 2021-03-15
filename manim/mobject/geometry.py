@@ -1667,6 +1667,7 @@ class Angle(Arc, Elbow):
     ):
         self.quadrant = quadrant
         self.dot_distance = dot_distance
+        self.elbow = elbow
         inter = line_intersection(
             [line1.get_start(), line1.get_end()], [line2.get_start(), line2.get_end()]
         )
@@ -1738,6 +1739,12 @@ class Angle(Arc, Elbow):
                 )
                 right_dot.move_to(dot_anchor)
                 self.add(right_dot)
+    
+    def generate_points(self):
+        if self.elbow:
+            Elbow.generate_points(self)
+        else:
+            Arc.generate_points(self)
 
 
 class RightAngle(Angle):
